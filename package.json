@@ -1,0 +1,42 @@
+{
+  "name": "react-selection",
+  "version": "1.0.0",
+  "description": "A selection feature same as ones in OS (File Explorer/Finder)",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "rollup": "rollup -c --bundleConfigAsCjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Huyhehe/react-selection.git"
+  },
+  "keywords": [
+    "react",
+    "react-selection",
+    "reactselection",
+    "selection",
+    "react-selection-zone",
+    "drag-n-select",
+    "drag-n-select-react",
+    "react-drag-n-select"
+  ],
+  "author": "Huy Nguyen",
+  "license": "ISC",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/react": "^18.3.3",
+    "react": "^18.3.1",
+    "rollup": "^4.18.1",
+    "rollup-plugin-dts": "^6.1.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.2",
+    "tslib": "^2.6.3",
+    "typescript": "^5.5.3"
+  }
+}
