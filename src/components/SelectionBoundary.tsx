@@ -1,4 +1,9 @@
-import React, { PropsWithChildren } from "react";
+import {
+  HTMLAttributes,
+  MouseEvent,
+  PropsWithChildren,
+  RefObject,
+} from "react";
 import { TSelection } from "../hooks/useSelectionZone";
 
 const getPositionedStyles = (selection: NonNullable<TSelection>) => {
@@ -10,14 +15,14 @@ const getPositionedStyles = (selection: NonNullable<TSelection>) => {
   };
 };
 
-interface Props extends React.HTMLAttributes<HTMLDivElement> {
+interface Props extends HTMLAttributes<HTMLDivElement> {
   className?: string;
-  selectionContainerRef: React.RefObject<HTMLDivElement>;
+  selectionContainerRef: RefObject<HTMLDivElement>;
   isSelecting: boolean;
   selection: TSelection;
-  handleMouseDown: (e: React.MouseEvent) => void;
-  handleMouseMove: (e: React.MouseEvent) => void;
-  handleMouseUp: (e: React.MouseEvent) => void;
+  handleMouseDown: (e: MouseEvent) => void;
+  handleMouseMove: (e: MouseEvent) => void;
+  handleMouseUp: (e: MouseEvent) => void;
 }
 
 export const SelectionBoundary = ({
