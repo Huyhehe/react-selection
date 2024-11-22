@@ -1,17 +1,7 @@
 import { useCallback, useRef, useState } from "react";
+import { CollisionType, TSelectableItem, TSelection } from "../shared/types";
 
-export type TSelection = {
-  x1: number;
-  y1: number;
-  x2: number;
-  y2: number;
-} | null;
-
-export type TSelectableItem = {
-  ID: string;
-};
-
-export type HandleMouseMoveCBProps<T> = {
+type HandleMouseMoveCBProps<T> = {
   e: React.MouseEvent;
   selection: TSelection;
   isSelecting: boolean;
@@ -22,7 +12,8 @@ export type HandleMouseMoveCBProps<T> = {
 
 const checkIntersecting = (
   selectionBox: NonNullable<TSelection>,
-  itemBox: NonNullable<TSelection>
+  itemBox: NonNullable<TSelection>,
+  collisionType: CollisionType = "intersect"
 ) => {
   const selectionX1 = Math.min(selectionBox.x1, selectionBox.x2);
   const selectionY1 = Math.min(selectionBox.y1, selectionBox.y2);
@@ -30,7 +21,7 @@ const checkIntersecting = (
   const selectionY2 = Math.max(selectionBox.y1, selectionBox.y2);
 
   // Check if item intersects with the selection box
-  const intersects =
+  const intersect =
     Math.min(selectionX2, itemBox.x2) > Math.max(selectionX1, itemBox.x1) &&
     Math.min(selectionY2, itemBox.y2) > Math.max(selectionY1, itemBox.y1);
 
@@ -39,10 +30,22 @@ const checkIntersecting = (
     selectionX2 >= itemBox.x2 &&
     selectionY1 <= itemBox.y1 &&
     selectionY2 >= itemBox.y2;
-  return intersects;
+
+  const collisionTypes = {
+    intersect,
+    "absolutely-inside": absolutelyInside,
+  };
+
+  return collisionTypes[collisionType];
 };
 
-export const useSelectionZone = <T extends TSelectableItem>() => {
+interface UseSelectionZoneProps<_> {
+  collisionType?: CollisionType;
+}
+
+export const useSelectionZone = <T extends TSelectableItem>({
+  collisionType,
+}: UseSelectionZoneProps<T> = {}) => {
   const [isSelecting, setIsSelecting] = useState(false);
   const [selection, setSelection] = useState<TSelection>(null);
 
@@ -101,12 +104,12 @@ export const useSelectionZone = <T extends TSelectableItem>() => {
           y2: bottom - containerRect.top,
         };
 
-        return checkIntersecting(newSelection, itemBox);
+        return checkIntersecting(newSelection, itemBox, collisionType);
       });
 
       callback(selectedItems);
     },
-    []
+    [collisionType]
   );
 
   const handleMouseUp = (extendedCallback?: () => void) => {

@@ -4,19 +4,10 @@ import {
   PropsWithChildren,
   RefObject,
 } from "react";
-import { TSelection } from "../hooks/useSelectionZone";
+import { SelectionZoneBaseProps, TSelection } from "../shared/types";
+import { getPositionedStyles } from "../shared/utils";
 
-const getPositionedStyles = (selection: NonNullable<TSelection>) => {
-  return {
-    top: Math.min(selection.y1, selection.y2),
-    left: Math.min(selection.x1, selection.x2),
-    width: Math.abs(selection.x2 - selection.x1),
-    height: Math.abs(selection.y2 - selection.y1),
-  };
-};
-
-interface Props extends HTMLAttributes<HTMLDivElement> {
-  className?: string;
+interface Props extends HTMLAttributes<HTMLDivElement>, SelectionZoneBaseProps {
   selectionContainerRef: RefObject<HTMLDivElement>;
   isSelecting: boolean;
   selection: TSelection;
@@ -25,7 +16,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   handleMouseUp: (e: MouseEvent) => void;
 }
 
-export const SelectionBoundary = ({
+export default function SelectionZonePrimitive({
   children,
   selectionContainerRef,
   isSelecting,
@@ -33,32 +24,38 @@ export const SelectionBoundary = ({
   handleMouseDown,
   handleMouseMove,
   handleMouseUp,
+  classes,
+  className,
   style,
+  selectionBoxStyle,
   ...props
-}: PropsWithChildren<Props>) => {
+}: PropsWithChildren<Props>) {
   return (
     <div
+      {...props}
       ref={selectionContainerRef}
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       style={{ ...style, position: "relative" }}
-      {...props}
+      className={`${classes?.root || ""} ${className || ""}`}
     >
       {/* children have to own the 'id' property */}
       {children}
       {selection && isSelecting && (
         <div
+          className={classes?.selectionBox || ""}
           style={{
-            ...getPositionedStyles(selection),
-            position: "absolute",
             zIndex: 50,
             border: "1px dashed #3b82f6",
             backgroundColor: "#bfdbfe",
             opacity: 0.5,
+            ...selectionBoxStyle,
+            ...getPositionedStyles(selection),
+            position: "absolute",
           }}
         />
       )}
     </div>
   );
-};
+}
