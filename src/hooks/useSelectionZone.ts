@@ -1,8 +1,8 @@
-import { useCallback, useRef, useState } from "react";
+import { type MouseEvent, useCallback, useRef, useState } from "react";
 import { CollisionType, TSelectableItem, TSelection } from "../shared/types";
 
 type HandleMouseMoveCBProps<T> = {
-  e: React.MouseEvent;
+  e: MouseEvent;
   selection: TSelection;
   isSelecting: boolean;
   items: T[];
@@ -51,7 +51,7 @@ export const useSelectionZone = <T extends TSelectableItem>({
 
   const selectionContainerRef = useRef<HTMLDivElement>(null);
 
-  const handleMouseDown = (e: React.MouseEvent) => {
+  const handleMouseDown = (e: MouseEvent) => {
     const selectionContainerRefCurrent = selectionContainerRef.current;
     if (!selectionContainerRefCurrent) return;
 

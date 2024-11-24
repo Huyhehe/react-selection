@@ -1,20 +1,18 @@
-import { PropsWithChildren } from "react";
+import { HTMLAttributes, PropsWithChildren } from "react";
 
-interface Props extends React.HTMLAttributes<HTMLDivElement> {
-  onSelect: () => void;
+interface Props extends HTMLAttributes<HTMLDivElement> {
   className?: string;
   id: string;
 }
 
 export default function SelectableItem({
   children,
-  onSelect,
   id,
   className,
   ...props
 }: PropsWithChildren<Props>) {
   return (
-    <div id={id} onClick={onSelect} className={className} {...props}>
+    <div id={id} className={className} {...props}>
       {children}
     </div>
   );
