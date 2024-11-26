@@ -1,5 +1,5 @@
 {
-  "name": "react-selection",
+  "name": "@huyngth/react-selection",
   "version": "1.0.0",
   "description": "A selection feature same as ones in OS (File Explorer/Finder)",
   "main": "dist/index.js",
@@ -24,7 +24,7 @@
     "react-drag-n-select"
   ],
   "author": "Huy Nguyen",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^26.0.1",
     "@rollup/plugin-node-resolve": "^15.2.3",
