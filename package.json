@@ -1,6 +1,6 @@
 {
   "name": "@huyngth/react-selection",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A selection feature same as ones in OS (File Explorer/Finder)",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
