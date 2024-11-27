@@ -5,3 +5,6 @@
 
 # production
 /dist
+
+# packages
+*.tgz
